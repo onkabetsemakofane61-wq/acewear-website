@@ -97,15 +97,15 @@
     z-index:1;
   }
   .hero-silhouette{
-    width:min(46vw,560px);
-    height:88%;
-    margin-top:8vh;
-    background:
-      radial-gradient(ellipse 60% 40% at 50% 8%, rgba(233,230,223,0.10), transparent 60%),
-      linear-gradient(180deg, #2a2a2a 0%, #1c1c1c 45%, #101010 100%);
-    clip-path:polygon(38% 0%,62% 0%,66% 6%,80% 10%,92% 22%,88% 30%,78% 26%,74% 38%,80% 46%,78% 96%,66% 100%,60% 60%,40% 60%,34% 100%,22% 96%,28% 46%,26% 38%,22% 26%,12% 30%,8% 22%,20% 10%,34% 6%);
-    opacity:0.9;
-    filter:drop-shadow(0 40px 60px rgba(0,0,0,0.7));
+    width:min(38vw,460px);
+    height:92%;
+    margin-top:6vh;
+    filter:drop-shadow(0 50px 70px rgba(0,0,0,0.75));
+    opacity:0.96;
+  }
+  .hero-floor{
+    position:absolute;bottom:0;left:0;right:0;height:22%;z-index:1;
+    background:radial-gradient(ellipse 50% 100% at 50% 100%, rgba(255,255,255,0.05), transparent 70%);
   }
   .hero-spot{
     position:absolute;top:-10%;left:50%;transform:translateX(-50%);
@@ -207,9 +207,20 @@
   .drop-panel.main{grid-row:span 1;}
   .swatch{
     position:absolute;inset:0;
-    background:linear-gradient(150deg,#2c2c2c,#111 60%);
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 20%, rgba(233,230,223,0.10), transparent 65%),
+      linear-gradient(150deg,#2c2c2c,#111 60%);
     transition:transform .7s cubic-bezier(.2,.8,.2,1);
   }
+  .garment-icon{
+    position:absolute;inset:0;z-index:1;
+    display:flex;align-items:center;justify-content:center;
+    padding:14%;
+  }
+  .garment-icon svg{width:100%;height:100%;filter:drop-shadow(0 20px 30px rgba(0,0,0,0.6));}
+  .drop-panel:hover .garment-icon svg,
+  .product-card:hover .garment-icon svg{transform:scale(1.05);}
+  .garment-icon svg{transition:transform .7s cubic-bezier(.2,.8,.2,1);}
   .drop-panel:hover .swatch{transform:scale(1.06);}
   .drop-panel .overlay{
     position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.75),transparent 55%);
@@ -282,6 +293,27 @@
 
 <div class="grain"></div>
 
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <linearGradient id="gIconFabric" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#4a4a4a"/>
+      <stop offset="40%" stop-color="#28282a"/>
+      <stop offset="100%" stop-color="#0c0c0d"/>
+    </linearGradient>
+    <linearGradient id="gIconDenim" x1="0" y1="0" x2="0.4" y2="1">
+      <stop offset="0%" stop-color="#403c38"/>
+      <stop offset="50%" stop-color="#242220"/>
+      <stop offset="100%" stop-color="#0d0c0b"/>
+    </linearGradient>
+    <linearGradient id="gIconRim" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="rgba(233,230,223,0.5)"/>
+      <stop offset="15%" stop-color="rgba(233,230,223,0)"/>
+      <stop offset="85%" stop-color="rgba(233,230,223,0)"/>
+      <stop offset="100%" stop-color="rgba(233,230,223,0.3)"/>
+    </linearGradient>
+  </defs>
+</svg>
+
 <header id="siteHeader">
   <div class="logo-mark">ACEWEAR</div>
   <nav>
@@ -295,7 +327,87 @@
 
 <section class="hero">
   <div class="hero-spot"></div>
-  <div class="hero-figure"><div class="hero-silhouette"></div></div>
+  <div class="hero-figure">
+    <svg class="hero-silhouette" viewBox="0 0 400 900" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="skinGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#3a332e"/>
+          <stop offset="100%" stop-color="#171310"/>
+        </linearGradient>
+        <linearGradient id="hoodieGrad" x1="0" y1="0" x2="0.3" y2="1">
+          <stop offset="0%" stop-color="#4a4a4a"/>
+          <stop offset="35%" stop-color="#28282a"/>
+          <stop offset="70%" stop-color="#141416"/>
+          <stop offset="100%" stop-color="#0a0a0b"/>
+        </linearGradient>
+        <linearGradient id="hoodieRim" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="rgba(233,230,223,0.55)"/>
+          <stop offset="12%" stop-color="rgba(233,230,223,0)"/>
+          <stop offset="88%" stop-color="rgba(233,230,223,0)"/>
+          <stop offset="100%" stop-color="rgba(233,230,223,0.35)"/>
+        </linearGradient>
+        <linearGradient id="jeansGrad" x1="0" y1="0" x2="0.4" y2="1">
+          <stop offset="0%" stop-color="#3d3a37"/>
+          <stop offset="45%" stop-color="#232120"/>
+          <stop offset="100%" stop-color="#0d0c0b"/>
+        </linearGradient>
+      </defs>
+
+      <!-- head -->
+      <ellipse cx="200" cy="66" rx="46" ry="54" fill="url(#skinGrad)"/>
+      <path d="M158 40 Q200 10 242 40 Q248 70 236 96 Q224 78 200 78 Q176 78 164 96 Q152 70 158 40Z" fill="#0d0c0b"/>
+
+      <!-- hood behind neck -->
+      <path d="M120 150 Q200 100 280 150 L268 210 Q200 176 132 210 Z" fill="url(#hoodieGrad)"/>
+
+      <!-- oversized hoodie body -->
+      <path d="M132 128
+               Q200 96 268 128
+               L318 210
+               L282 250
+               L262 200
+               L262 470
+               Q262 512 240 520
+               L160 520
+               Q138 512 138 470
+               L138 200
+               L118 250
+               L82 210 Z"
+            fill="url(#hoodieGrad)"/>
+      <path d="M132 128 Q200 96 268 128 L318 210 L282 250 L262 200 L262 470 Q262 512 240 520 L160 520 Q138 512 138 470 L138 200 L118 250 L82 210 Z"
+            fill="url(#hoodieRim)"/>
+
+      <!-- sleeves fold lines -->
+      <path d="M262 210 L316 230 M138 210 L84 230" stroke="rgba(0,0,0,0.5)" stroke-width="3" fill="none"/>
+      <!-- pocket -->
+      <path d="M168 400 Q200 388 232 400 L228 440 Q200 450 172 440 Z" fill="rgba(0,0,0,0.35)"/>
+      <!-- drawstrings -->
+      <line x1="188" y1="160" x2="182" y2="230" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round"/>
+      <line x1="212" y1="160" x2="218" y2="230" stroke="#0a0a0a" stroke-width="4" stroke-linecap="round"/>
+      <!-- rib hem -->
+      <rect x="138" y="500" width="124" height="20" fill="#0a0a0a"/>
+
+      <!-- baggy jeans -->
+      <path d="M150 520
+               L250 520
+               L262 700
+               L232 872
+               L206 872
+               L200 700
+               L194 872
+               L168 872
+               L138 700 Z"
+            fill="url(#jeansGrad)"/>
+      <path d="M150 520 L250 520 L262 700 L232 872 L206 872 L200 700 L194 872 L168 872 L138 700 Z"
+            fill="url(#hoodieRim)" opacity="0.5"/>
+      <!-- jeans fold shading -->
+      <path d="M200 560 L198 860 M170 620 Q160 720 172 850 M230 620 Q240 720 228 850" stroke="rgba(0,0,0,0.4)" stroke-width="3" fill="none"/>
+      <!-- cuffs -->
+      <rect x="164" y="855" width="46" height="16" rx="3" fill="#0a0a0a"/>
+      <rect x="190" y="855" width="46" height="16" rx="3" fill="#0a0a0a"/>
+    </svg>
+  </div>
+  <div class="hero-floor"></div>
   <div class="hero-content">
     <p class="eyebrow">Studio Collection <em>/</em> Vol. 04</p>
     <h1 class="hero-title">ACEWEAR</h1>
@@ -326,7 +438,7 @@
   </div>
   <div class="drop-grid reveal">
     <div class="drop-panel main">
-      <div class="swatch"></div><div class="overlay"></div>
+      <div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconFabric)"/><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconRim)"/><path d="M85 68 Q120 48 155 68 L150 95 Q120 82 90 95 Z" fill="#0a0a0a" opacity="0.4"/><line x1="108" y1="75" x2="102" y2="130" stroke="#0a0a0a" stroke-width="3"/><line x1="132" y1="75" x2="138" y2="130" stroke="#0a0a0a" stroke-width="3"/><path d="M90 190 Q120 178 150 190 L146 220 Q120 228 94 220 Z" fill="rgba(0,0,0,0.35)"/></svg></div><div class="overlay"></div>
       <div class="content">
         <p class="price-tag">R 1,890</p>
         <h3>Vantage Oversized Hoodie</h3>
@@ -336,14 +448,14 @@
     </div>
     <div class="drop-side">
       <div class="drop-panel">
-        <div class="swatch"></div><div class="overlay"></div>
+        <div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><rect x="80" y="8" width="80" height="16" rx="2" fill="#0d0c0b"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconDenim)"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconRim)" opacity="0.5"/><path d="M120 30 L118 235" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><path d="M90 60 Q80 150 92 230 M150 60 Q160 150 148 230" stroke="rgba(0,0,0,0.35)" stroke-width="2" fill="none"/></svg></div><div class="overlay"></div>
         <div class="content">
           <p class="price-tag">R 1,450</p>
           <h3 style="font-size:26px;">Forge Baggy Denim</h3>
         </div>
       </div>
       <div class="drop-panel">
-        <div class="swatch"></div><div class="overlay"></div>
+        <div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconFabric)"/><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconRim)"/><path d="M100 35 Q120 55 140 35" stroke="#0a0a0a" stroke-width="3" fill="none"/></svg></div><div class="overlay"></div>
         <div class="content">
           <p class="price-tag">R 690</p>
           <h3 style="font-size:26px;">Studio Heavy Tee</h3>
@@ -359,11 +471,11 @@
     <p class="section-desc">Oversized fits, heavyweight loop-back fleece, boxed proportion.</p>
   </div>
   <div class="cat-row reveal">
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconFabric)"/><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconRim)"/><path d="M85 68 Q120 48 155 68 L150 95 Q120 82 90 95 Z" fill="#0a0a0a" opacity="0.4"/><line x1="108" y1="75" x2="102" y2="130" stroke="#0a0a0a" stroke-width="3"/><line x1="132" y1="75" x2="138" y2="130" stroke="#0a0a0a" stroke-width="3"/><path d="M90 190 Q120 178 150 190 L146 220 Q120 228 94 220 Z" fill="rgba(0,0,0,0.35)"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Hoodie</span><h4>Vantage Oversized</h4><p class="p">R 1,890</p></div></div>
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconFabric)"/><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconRim)"/><path d="M85 68 Q120 48 155 68 L150 95 Q120 82 90 95 Z" fill="#0a0a0a" opacity="0.4"/><line x1="108" y1="75" x2="102" y2="130" stroke="#0a0a0a" stroke-width="3"/><line x1="132" y1="75" x2="138" y2="130" stroke="#0a0a0a" stroke-width="3"/><path d="M90 190 Q120 178 150 190 L146 220 Q120 228 94 220 Z" fill="rgba(0,0,0,0.35)"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Hoodie</span><h4>Monochrome Pullover</h4><p class="p">R 1,690</p></div></div>
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconFabric)"/><path d="M60 60 Q120 20 180 60 L220 120 L190 150 L172 105 L172 240 L68 240 L68 105 L50 150 L20 120 Z" fill="url(#gIconRim)"/><path d="M85 68 Q120 48 155 68 L150 95 Q120 82 90 95 Z" fill="#0a0a0a" opacity="0.4"/><line x1="108" y1="75" x2="102" y2="130" stroke="#0a0a0a" stroke-width="3"/><line x1="132" y1="75" x2="138" y2="130" stroke="#0a0a0a" stroke-width="3"/><path d="M90 190 Q120 178 150 190 L146 220 Q120 228 94 220 Z" fill="rgba(0,0,0,0.35)"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Hoodie</span><h4>Studio Zip-Up</h4><p class="p">R 2,050</p></div></div>
   </div>
 </section>
@@ -374,11 +486,11 @@
     <p class="section-desc">Straight through the leg, engineered stack, raw hem detail.</p>
   </div>
   <div class="cat-row reveal">
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><rect x="80" y="8" width="80" height="16" rx="2" fill="#0d0c0b"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconDenim)"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconRim)" opacity="0.5"/><path d="M120 30 L118 235" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><path d="M90 60 Q80 150 92 230 M150 60 Q160 150 148 230" stroke="rgba(0,0,0,0.35)" stroke-width="2" fill="none"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Denim</span><h4>Forge Baggy Denim</h4><p class="p">R 1,450</p></div></div>
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><rect x="80" y="8" width="80" height="16" rx="2" fill="#0d0c0b"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconDenim)"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconRim)" opacity="0.5"/><path d="M120 30 L118 235" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><path d="M90 60 Q80 150 92 230 M150 60 Q160 150 148 230" stroke="rgba(0,0,0,0.35)" stroke-width="2" fill="none"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Denim</span><h4>Ash Wide Leg</h4><p class="p">R 1,590</p></div></div>
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><rect x="80" y="8" width="80" height="16" rx="2" fill="#0d0c0b"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconDenim)"/><path d="M75 24 L165 24 L178 140 L155 240 L128 240 L120 140 L112 240 L85 240 L62 140 Z" fill="url(#gIconRim)" opacity="0.5"/><path d="M120 30 L118 235" stroke="rgba(0,0,0,0.4)" stroke-width="2"/><path d="M90 60 Q80 150 92 230 M150 60 Q160 150 148 230" stroke="rgba(0,0,0,0.35)" stroke-width="2" fill="none"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Denim</span><h4>Carbon Cargo Denim</h4><p class="p">R 1,720</p></div></div>
   </div>
 </section>
@@ -389,11 +501,11 @@
     <p class="section-desc">220gsm heavy cotton, boxy cut, garment-dyed for depth.</p>
   </div>
   <div class="cat-row reveal">
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconFabric)"/><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconRim)"/><path d="M100 35 Q120 55 140 35" stroke="#0a0a0a" stroke-width="3" fill="none"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Tee</span><h4>Studio Heavy Tee</h4><p class="p">R 690</p></div></div>
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconFabric)"/><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconRim)"/><path d="M100 35 Q120 55 140 35" stroke="#0a0a0a" stroke-width="3" fill="none"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Tee</span><h4>Boxed Fit Essential</h4><p class="p">R 590</p></div></div>
-    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+    <div class="product-card"><div class="swatch"></div><div class="garment-icon"><svg viewBox="0 0 240 260"><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconFabric)"/><path d="M70 50 L95 30 L120 45 L145 30 L170 50 L200 90 L175 115 L165 95 L165 230 L75 230 L75 95 L65 115 L40 90 Z" fill="url(#gIconRim)"/><path d="M100 35 Q120 55 140 35" stroke="#0a0a0a" stroke-width="3" fill="none"/></svg></div><div class="overlay"></div>
       <div class="content"><span class="cat-label">Tee</span><h4>Garment-Dyed Longsleeve</h4><p class="p">R 790</p></div></div>
   </div>
 </section>
