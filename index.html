@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACEWEAR — Studio Collection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&family=Archivo+Expanded:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#0a0a0a;
+    --charcoal:#161616;
+    --gunmetal:#232323;
+    --steel:#3a3a3a;
+    --bone:#e9e6df;
+    --bone-dim:#a8a49c;
+    --rust:#a8402b;
+    --line:rgba(233,230,223,0.1);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--black);
+    color:var(--bone);
+    font-family:'Archivo',sans-serif;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{background:var(--rust);color:var(--bone);}
+
+  /* grain overlay */
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:999;
+    opacity:0.04;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  a{color:inherit;text-decoration:none;}
+  .eyebrow{
+    font-size:11px;letter-spacing:0.28em;text-transform:uppercase;
+    color:var(--bone-dim);font-weight:600;
+  }
+  .eyebrow em{color:var(--rust);font-style:normal;}
+
+  h1,h2,h3{font-family:'Archivo Expanded',sans-serif;text-transform:uppercase;letter-spacing:-0.01em;}
+
+  /* NAV */
+  header{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px 5vw;
+    transition:padding .4s ease, background .4s ease, border-color .4s ease;
+    border-bottom:1px solid transparent;
+  }
+  header.scrolled{
+    padding:16px 5vw;
+    background:rgba(10,10,10,0.86);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .logo-mark{
+    font-family:'Anton',sans-serif;
+    font-size:22px;letter-spacing:0.06em;
+  }
+  nav{display:flex;gap:38px;}
+  nav a{
+    font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;
+    color:var(--bone-dim);position:relative;padding-bottom:4px;
+    transition:color .3s ease;
+  }
+  nav a::after{
+    content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--bone);
+    transition:width .3s ease;
+  }
+  nav a:hover{color:var(--bone);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{
+    display:flex;align-items:center;gap:6px;
+    font-size:12px;letter-spacing:0.14em;color:var(--bone);
+  }
+  .nav-mobile-toggle{display:none;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100svh;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    background:
+      radial-gradient(ellipse 90% 60% at 50% 0%, rgba(60,58,55,0.55), transparent 60%),
+      linear-gradient(180deg,#0d0d0d 0%, #0a0a0a 55%, #050505 100%);
+    overflow:hidden;
+    border-bottom:1px solid var(--line);
+  }
+  .hero-figure{
+    position:absolute;inset:0;
+    display:flex;align-items:flex-end;justify-content:center;
+    z-index:1;
+  }
+  .hero-silhouette{
+    width:min(46vw,560px);
+    height:88%;
+    margin-top:8vh;
+    background:
+      radial-gradient(ellipse 60% 40% at 50% 8%, rgba(233,230,223,0.10), transparent 60%),
+      linear-gradient(180deg, #2a2a2a 0%, #1c1c1c 45%, #101010 100%);
+    clip-path:polygon(38% 0%,62% 0%,66% 6%,80% 10%,92% 22%,88% 30%,78% 26%,74% 38%,80% 46%,78% 96%,66% 100%,60% 60%,40% 60%,34% 100%,22% 96%,28% 46%,26% 38%,22% 26%,12% 30%,8% 22%,20% 10%,34% 6%);
+    opacity:0.9;
+    filter:drop-shadow(0 40px 60px rgba(0,0,0,0.7));
+  }
+  .hero-spot{
+    position:absolute;top:-10%;left:50%;transform:translateX(-50%);
+    width:120%;height:70%;
+    background:linear-gradient(180deg, rgba(255,255,255,0.10), transparent 70%);
+    filter:blur(40px);
+    animation:sweep 7s ease-in-out infinite alternate;
+    z-index:0;
+  }
+  @keyframes sweep{
+    0%{transform:translateX(-58%) rotate(-3deg);opacity:0.5;}
+    100%{transform:translateX(-42%) rotate(3deg);opacity:0.85;}
+  }
+  .hero-content{
+    position:relative;z-index:2;
+    padding:0 5vw 64px;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .hero-title{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(64px,15vw,220px);
+    line-height:0.82;
+    letter-spacing:0.01em;
+    color:var(--bone);
+    text-shadow:0 10px 60px rgba(0,0,0,0.6);
+  }
+  .hero-sub{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    flex-wrap:wrap;gap:24px;
+    border-top:1px solid var(--line);
+    padding-top:20px;
+  }
+  .hero-tag{max-width:360px;font-size:14px;color:var(--bone-dim);line-height:1.6;}
+  .hero-actions{display:flex;gap:14px;flex-wrap:wrap;}
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:16px 30px;
+    font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:700;
+    border:1px solid var(--bone);
+    transition:background .3s ease, color .3s ease, border-color .3s ease, transform .2s ease;
+    cursor:pointer;background:transparent;color:var(--bone);
+    white-space:nowrap;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-solid{background:var(--bone);color:var(--black);}
+  .btn-solid:hover{background:#fff;}
+  .btn-ghost:hover{border-color:var(--rust);color:var(--rust);}
+
+  .scroll-cue{
+    position:absolute;bottom:26px;left:5vw;z-index:2;
+    display:flex;align-items:center;gap:10px;
+    font-size:11px;letter-spacing:0.2em;color:var(--bone-dim);
+  }
+  .scroll-cue .line{width:32px;height:1px;background:var(--bone-dim);position:relative;overflow:hidden;}
+  .scroll-cue .line::after{
+    content:'';position:absolute;left:-100%;top:0;width:100%;height:100%;background:var(--bone);
+    animation:load 2.2s ease-in-out infinite;
+  }
+  @keyframes load{0%{left:-100%;}50%{left:0;}100%{left:100%;}}
+
+  /* MARQUEE */
+  .marquee-wrap{
+    border-bottom:1px solid var(--line);
+    background:var(--charcoal);
+    padding:16px 0;overflow:hidden;white-space:nowrap;
+  }
+  .marquee{display:inline-flex;animation:scroll 24s linear infinite;}
+  .marquee span{
+    font-family:'Anton',sans-serif;
+    font-size:20px;letter-spacing:0.04em;
+    padding:0 28px;color:var(--bone-dim);
+    display:inline-flex;align-items:center;gap:28px;
+  }
+  .marquee span em{color:var(--rust);font-style:normal;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  section{padding:120px 5vw;}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-bottom:56px;gap:24px;flex-wrap:wrap;
+    border-bottom:1px solid var(--line);
+    padding-bottom:28px;
+  }
+  .section-head h2{font-size:clamp(38px,5vw,64px);line-height:0.95;}
+  .section-desc{max-width:320px;font-size:13px;color:var(--bone-dim);line-height:1.7;}
+
+  /* fade in on scroll */
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s ease, transform .8s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  /* DROP */
+  .drop-grid{
+    display:grid;grid-template-columns:1.3fr 1fr;gap:2px;
+    background:var(--line);
+    border:1px solid var(--line);
+  }
+  .drop-panel{background:var(--black);padding:48px;position:relative;min-height:440px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+  .drop-panel.main{grid-row:span 1;}
+  .swatch{
+    position:absolute;inset:0;
+    background:linear-gradient(150deg,#2c2c2c,#111 60%);
+    transition:transform .7s cubic-bezier(.2,.8,.2,1);
+  }
+  .drop-panel:hover .swatch{transform:scale(1.06);}
+  .drop-panel .overlay{
+    position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.75),transparent 55%);
+  }
+  .drop-panel .content{position:relative;z-index:2;}
+  .drop-panel h3{font-size:clamp(28px,3vw,40px);margin-bottom:10px;}
+  .drop-panel p{font-size:13px;color:var(--bone-dim);margin-bottom:18px;max-width:320px;}
+  .price-tag{font-size:12px;letter-spacing:0.1em;color:var(--bone-dim);margin-bottom:14px;}
+
+  .drop-side{display:flex;flex-direction:column;gap:2px;}
+  .drop-side .drop-panel{min-height:219px;}
+
+  /* CATEGORY sections */
+  .cat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--line);border:1px solid var(--line);}
+  .product-card{
+    background:var(--charcoal);
+    position:relative;overflow:hidden;
+    aspect-ratio:3/4;
+    display:flex;flex-direction:column;justify-content:flex-end;
+  }
+  .product-card .swatch{background:linear-gradient(160deg,#252525,#0c0c0c 70%);}
+  .product-card:nth-child(2) .swatch{background:linear-gradient(160deg,#2a2a2a,#0f0f0f 70%);}
+  .product-card:nth-child(3) .swatch{background:linear-gradient(160deg,#212121,#0a0a0a 70%);}
+  .product-card .content{position:relative;z-index:2;padding:24px;}
+  .product-card .content .cat-label{font-size:10px;letter-spacing:0.18em;color:var(--rust);text-transform:uppercase;margin-bottom:6px;display:block;}
+  .product-card h4{font-family:'Archivo Expanded',sans-serif;font-size:20px;text-transform:uppercase;margin-bottom:4px;}
+  .product-card .p{font-size:13px;color:var(--bone-dim);}
+  .product-card .overlay{position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,0.8),transparent 50%);}
+
+  .cat-block{margin-bottom:100px;}
+  .cat-block:last-child{margin-bottom:0;}
+  .cat-block .section-head{margin-bottom:32px;padding-bottom:20px;}
+
+  /* CTA band */
+  .cta-band{
+    padding:140px 5vw;
+    text-align:center;
+    background:linear-gradient(180deg,#050505,#0d0d0d);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .cta-band h2{
+    font-family:'Anton',sans-serif;
+    font-size:clamp(46px,9vw,120px);
+    line-height:0.9;margin-bottom:36px;
+  }
+  .cta-band .btn{padding:20px 42px;}
+
+  footer{padding:60px 5vw 40px;}
+  .foot-top{
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:40px;
+    padding-bottom:48px;border-bottom:1px solid var(--line);margin-bottom:24px;
+  }
+  .foot-logo{font-family:'Anton',sans-serif;font-size:28px;letter-spacing:0.05em;}
+  .foot-cols{display:flex;gap:64px;flex-wrap:wrap;}
+  .foot-col h5{font-size:11px;letter-spacing:0.16em;color:var(--bone-dim);text-transform:uppercase;margin-bottom:16px;}
+  .foot-col a{display:block;font-size:14px;margin-bottom:10px;color:var(--bone);}
+  .foot-bottom{display:flex;justify-content:space-between;font-size:11px;color:var(--bone-dim);letter-spacing:0.08em;flex-wrap:wrap;gap:10px;}
+
+  @media (max-width:860px){
+    nav{display:none;}
+    .drop-grid{grid-template-columns:1fr;}
+    .cat-row{grid-template-columns:1fr;}
+    section{padding:90px 5vw;}
+    .hero-silhouette{width:70vw;}
+  }
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<header id="siteHeader">
+  <div class="logo-mark">ACEWEAR</div>
+  <nav>
+    <a href="#drop">New Drop</a>
+    <a href="#hoodies">Hoodies</a>
+    <a href="#jeans">Baggy Jeans</a>
+    <a href="#tees">T-Shirts</a>
+  </nav>
+  <a href="#drop" class="nav-cta">Shop the Drop →</a>
+</header>
+
+<section class="hero">
+  <div class="hero-spot"></div>
+  <div class="hero-figure"><div class="hero-silhouette"></div></div>
+  <div class="hero-content">
+    <p class="eyebrow">Studio Collection <em>/</em> Vol. 04</p>
+    <h1 class="hero-title">ACEWEAR</h1>
+    <div class="hero-sub">
+      <p class="hero-tag">Oversized silhouettes cut for the street, shot in the studio. Heavyweight fabric, engineered proportion, zero noise.</p>
+      <div class="hero-actions">
+        <a href="#drop" class="btn btn-solid">Shop the Drop</a>
+        <a href="#hoodies" class="btn btn-ghost">View Collection</a>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-cue"><span class="line"></span>SCROLL</div>
+</section>
+
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>NEW DROP <em>—</em> VOL. 04 <em>—</em> OUT NOW <em>—</em> LIMITED RUN <em>—</em></span>
+    <span>NEW DROP <em>—</em> VOL. 04 <em>—</em> OUT NOW <em>—</em> LIMITED RUN <em>—</em></span>
+    <span>NEW DROP <em>—</em> VOL. 04 <em>—</em> OUT NOW <em>—</em> LIMITED RUN <em>—</em></span>
+    <span>NEW DROP <em>—</em> VOL. 04 <em>—</em> OUT NOW <em>—</em> LIMITED RUN <em>—</em></span>
+  </div>
+</div>
+
+<section id="drop">
+  <div class="section-head reveal">
+    <h2>New Drop</h2>
+    <p class="section-desc">Six pieces. One release. Restocks are not guaranteed — this run is numbered and finite.</p>
+  </div>
+  <div class="drop-grid reveal">
+    <div class="drop-panel main">
+      <div class="swatch"></div><div class="overlay"></div>
+      <div class="content">
+        <p class="price-tag">R 1,890</p>
+        <h3>Vantage Oversized Hoodie</h3>
+        <p>20oz heavyweight fleece, dropped shoulder, boxed fit.</p>
+        <a href="#hoodies" class="btn btn-solid">Shop the Drop</a>
+      </div>
+    </div>
+    <div class="drop-side">
+      <div class="drop-panel">
+        <div class="swatch"></div><div class="overlay"></div>
+        <div class="content">
+          <p class="price-tag">R 1,450</p>
+          <h3 style="font-size:26px;">Forge Baggy Denim</h3>
+        </div>
+      </div>
+      <div class="drop-panel">
+        <div class="swatch"></div><div class="overlay"></div>
+        <div class="content">
+          <p class="price-tag">R 690</p>
+          <h3 style="font-size:26px;">Studio Heavy Tee</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hoodies" class="cat-block">
+  <div class="section-head reveal">
+    <h2>Hoodies</h2>
+    <p class="section-desc">Oversized fits, heavyweight loop-back fleece, boxed proportion.</p>
+  </div>
+  <div class="cat-row reveal">
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Hoodie</span><h4>Vantage Oversized</h4><p class="p">R 1,890</p></div></div>
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Hoodie</span><h4>Monochrome Pullover</h4><p class="p">R 1,690</p></div></div>
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Hoodie</span><h4>Studio Zip-Up</h4><p class="p">R 2,050</p></div></div>
+  </div>
+</section>
+
+<section id="jeans" class="cat-block">
+  <div class="section-head reveal">
+    <h2>Baggy Jeans</h2>
+    <p class="section-desc">Straight through the leg, engineered stack, raw hem detail.</p>
+  </div>
+  <div class="cat-row reveal">
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Denim</span><h4>Forge Baggy Denim</h4><p class="p">R 1,450</p></div></div>
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Denim</span><h4>Ash Wide Leg</h4><p class="p">R 1,590</p></div></div>
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Denim</span><h4>Carbon Cargo Denim</h4><p class="p">R 1,720</p></div></div>
+  </div>
+</section>
+
+<section id="tees" class="cat-block">
+  <div class="section-head reveal">
+    <h2>T-Shirts</h2>
+    <p class="section-desc">220gsm heavy cotton, boxy cut, garment-dyed for depth.</p>
+  </div>
+  <div class="cat-row reveal">
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Tee</span><h4>Studio Heavy Tee</h4><p class="p">R 690</p></div></div>
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Tee</span><h4>Boxed Fit Essential</h4><p class="p">R 590</p></div></div>
+    <div class="product-card"><div class="swatch"></div><div class="overlay"></div>
+      <div class="content"><span class="cat-label">Tee</span><h4>Garment-Dyed Longsleeve</h4><p class="p">R 790</p></div></div>
+  </div>
+</section>
+
+<section class="cta-band reveal">
+  <p class="eyebrow" style="margin-bottom:20px;">Vol. 04 <em>/</em> Limited Run</p>
+  <h2>Own the<br>Studio.</h2>
+  <a href="#drop" class="btn btn-solid">Shop the Drop</a>
+</section>
+
+<footer>
+  <div class="foot-top">
+    <div class="foot-logo">ACEWEAR</div>
+    <div class="foot-cols">
+      <div class="foot-col">
+        <h5>Shop</h5>
+        <a href="#drop">New Drop</a>
+        <a href="#hoodies">Hoodies</a>
+        <a href="#jeans">Baggy Jeans</a>
+        <a href="#tees">T-Shirts</a>
+      </div>
+      <div class="foot-col">
+        <h5>Studio</h5>
+        <a href="#">About</a>
+        <a href="#">Lookbook</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="foot-col">
+        <h5>Follow</h5>
+        <a href="#">Instagram</a>
+        <a href="#">TikTok</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 ACEWEAR STUDIO. ALL RIGHTS RESERVED.</span>
+    <span>DESIGNED IN THE DARK.</span>
+  </div>
+</footer>
+
+<script>
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
